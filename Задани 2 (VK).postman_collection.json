@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "aeeb9de7-f852-47fc-9440-b6dc6011bfdf",
+		"name": "VK",
+		"description": "# Introduction\n\n**Если не работает автозабор id, то его надо вставить вручную**.\n\nПосле 1го запроса берем из \"response\" \"post_id\": 476\n\nВ 3м запросе во вкладке \"Params\" в \"posts\" надо ввести owner_id_post_id (Прим. 12754922_474)\n\nВ 4м запросе во вкладке \"Params\" в \"post_id\" надо ввести ранее полученный id.\n\n**Можно отлючить пустые \"Ключи\" во вкладке \"Params\"**\n\n> //\n\n# Более подробная инструкция:\n\nГде взять access_token\n\n[Официальная документация](https://dev.vk.com/api/access-token/implicit-flow-community)\n\n[Краткая инструкция](https://badtry.net/vk-api-osnovy-poluchieniie-tokiena/)\n\n> //\n\nГде взять [owner_id](https://id.vk.com/account/#/personal) если в строке указан никнейм\n\n> //\n\n**1й запрос (**[https://dev.vk.com/method/wall.post](https://dev.vk.com/method/wall.post))\n\n**2й запрос** ([https://dev.vk.com/method/wall.get](https://dev.vk.com/method/wall.get))\n\n**3й запрос** ([https://dev.vk.com/method/wall.getById](https://dev.vk.com/method/wall.getById))\n\n**4й запрос** ([https://dev.vk.com/method/wall.deleteLike](https://dev.vk.com/method/wall.deleteLike))",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8605857"
+	},
+	"item": [
+		{
+			"name": "1. Добавить сообщение с картинкой на свою стену",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var key = \"postid\"\r",
+							"var value = pm.response.json().response.post_id \r",
+							"pm.collectionVariables.set(key, value);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}wall.post?access_token={{MyToken}}&owner_id=12754922&message=Bayerische Motoren Werke&attachments=https://drive.google.com/file/d/1Xq8DYl2oK_rP4r4rSKw0T-RtNfSeOMr4/view?usp=share_link&v=5.131",
+					"host": [
+						"{{baseUrl}}wall",
+						"post"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{MyToken}}"
+						},
+						{
+							"key": "owner_id",
+							"value": "12754922",
+							"description": "12754922"
+						},
+						{
+							"key": "friends_only",
+							"value": "1",
+							"description": "1",
+							"disabled": true
+						},
+						{
+							"key": "from_group",
+							"value": "1",
+							"description": "1",
+							"disabled": true
+						},
+						{
+							"key": "message",
+							"value": "Bayerische Motoren Werke"
+						},
+						{
+							"key": "attachments",
+							"value": "https://drive.google.com/file/d/1Xq8DYl2oK_rP4r4rSKw0T-RtNfSeOMr4/view?usp=share_link"
+						},
+						{
+							"key": "services",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "signed",
+							"value": "1",
+							"description": "1",
+							"disabled": true
+						},
+						{
+							"key": "publish_date",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "lat",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "long",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "place_id",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "post_id\n",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "guid",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "mark_as_ads",
+							"value": "0",
+							"description": "0",
+							"disabled": true
+						},
+						{
+							"key": "close_comments\n",
+							"value": "1",
+							"description": "1",
+							"disabled": true
+						},
+						{
+							"key": "donut_paid_duration",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "mute_notifications",
+							"value": "1",
+							"description": "1",
+							"disabled": true
+						},
+						{
+							"key": "copyright",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "topic_id",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "v",
+							"value": "5.131"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 .Получить список сообщений на стене",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}wall.get?access_token={{MyToken}}&owner_id=12754922&count=100&v=5.131",
+					"host": [
+						"{{baseUrl}}wall",
+						"get"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{MyToken}}"
+						},
+						{
+							"key": "owner_id",
+							"value": "12754922",
+							"description": "12754922"
+						},
+						{
+							"key": "domain",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "offset",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "count",
+							"value": "100"
+						},
+						{
+							"key": "filter",
+							"value": "all",
+							"description": "all",
+							"disabled": true
+						},
+						{
+							"key": "extended",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "fields",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "v",
+							"value": "5.131"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Просмотреть сообщение на стене",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}wall.getById?access_token={{MyToken}}&owner_id=12754922&v=5.131&posts=12754922_{{postid}}",
+					"host": [
+						"{{baseUrl}}wall",
+						"getById"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{MyToken}}"
+						},
+						{
+							"key": "owner_id",
+							"value": "12754922",
+							"description": "12754922"
+						},
+						{
+							"key": "friends_only",
+							"value": "1",
+							"description": "1",
+							"disabled": true
+						},
+						{
+							"key": "message",
+							"value": "123",
+							"description": "тест",
+							"disabled": true
+						},
+						{
+							"key": "v",
+							"value": "5.131"
+						},
+						{
+							"key": "attachments",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "count",
+							"value": "100",
+							"disabled": true
+						},
+						{
+							"key": "posts",
+							"value": "12754922_{{postid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Удаление сообщения",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}wall.delete?access_token={{MyToken}}&owner_id=12754922&post_id=474&v=5.131",
+					"host": [
+						"{{baseUrl}}wall",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{MyToken}}"
+						},
+						{
+							"key": "owner_id",
+							"value": "12754922",
+							"description": "12754922"
+						},
+						{
+							"key": "post_id",
+							"value": "474",
+							"description": "{{post_id}}"
+						},
+						{
+							"key": "v",
+							"value": "5.131"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.vk.com/method/",
+			"type": "string"
+		},
+		{
+			"key": "MyToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "postid",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
