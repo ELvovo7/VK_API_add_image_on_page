@@ -1,6 +1,6 @@
-# VK_API_add_image_on_page
+# VK API add image on page
 
-##Задача: 
+## Задача: 
 
 Через VK API и Postman создать коллекцию из трех запросов:
 
